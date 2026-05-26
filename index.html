@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Zylabs Cloud menyediakan VPN WireGuard, HTTP Proxy, SSH Tunnel, dan VPS dengan Hermes AI Agent untuk individu, developer, marketer, dan UMKM Indonesia." />
+  <title>Zylabs Cloud | Cloud Services Indonesia</title>
+  <link rel="icon" type="image/png" href="assets/mascot-head.png" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            zylabs: {
+              ink: '#0F172A',
+              paper: '#F8FAFC',
+              cyan: '#06B6D4',
+              blue: '#2563EB',
+              indigo: '#4F46E5',
+              mint: '#A7F3D0',
+              coral: '#FB7185'
+            }
+          },
+          boxShadow: {
+            brutal: '7px 7px 0 #0F172A',
+            brutalSm: '4px 4px 0 #0F172A',
+            soft: '0 24px 70px rgba(15, 23, 42, 0.14)'
+          }
+        }
+      }
+    };
+  </script>
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <style>
+    body {
+      color: #0F172A;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(6, 182, 212, 0.22), transparent 26rem),
+        radial-gradient(circle at 92% 2%, rgba(79, 70, 229, 0.16), transparent 24rem),
+        linear-gradient(180deg, #F8FAFC 0%, #EFF6FF 46%, #F8FAFC 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(15, 23, 42, 0.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 23, 42, 0.07) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, black, transparent 76%);
+    }
+
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 650ms ease, transform 650ms ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .brutal-card {
+      border: 2px solid #0F172A;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 7px 7px 0 #0F172A;
+    }
+
+    .brutal-card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 9px 9px 0 #0F172A;
+    }
+
+    .brutal-button {
+      border: 2px solid #0F172A;
+      border-radius: 8px;
+      box-shadow: 5px 5px 0 #0F172A;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .brutal-button:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 7px 7px 0 #0F172A;
+    }
+
+    .icon-tile {
+      display: grid;
+      height: 3.25rem;
+      width: 3.25rem;
+      place-items: center;
+      border: 2px solid #0F172A;
+      border-radius: 8px;
+      background: #E0F2FE;
+    }
+
+    .hero-float {
+      animation: heroFloat 4.8s ease-in-out infinite;
+      will-change: translate;
+    }
+
+    .hero-float-slow {
+      animation-duration: 6.2s;
+    }
+
+    .hero-float-delay {
+      animation-delay: -2.4s;
+    }
+
+    @keyframes heroFloat {
+      0%, 100% {
+        translate: 0 0;
+      }
+      50% {
+        translate: 0 -10px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero-float {
+        animation: none;
+      }
+    }
+
+  </style>
+</head>
+<body class="min-h-screen antialiased">
+  <header class="fixed inset-x-0 top-0 z-50 border-b-2 border-zylabs-ink bg-white/90 backdrop-blur-xl">
+    <nav class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 lg:px-8" aria-label="Navigasi utama">
+      <a href="#hero" class="flex items-center gap-3">
+        <img src="assets/mascot-head.png" alt="Mascot Zylab's" class="h-12 w-12 shrink-0 object-contain drop-shadow-[3px_3px_0_#0F172A]" />
+        <span class="text-lg font-black tracking-tight">Zylabs Cloud</span>
+      </a>
+      <div class="hidden items-center gap-5 text-sm font-bold text-slate-700 lg:flex">
+        <a class="transition hover:text-zylabs-blue" href="#layanan">Layanan</a>
+        <a class="transition hover:text-zylabs-blue" href="#cara-order">Cara Order</a>
+        <a class="transition hover:text-zylabs-blue" href="#keunggulan">Keunggulan</a>
+        <a class="transition hover:text-zylabs-blue" href="#harga">Harga</a>
+        <a class="transition hover:text-zylabs-blue" href="#faq">FAQ</a>
+        <a class="transition hover:text-zylabs-blue" href="#tentang">Tentang</a>
+        <a class="transition hover:text-zylabs-blue" href="#kontak">Kontak</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="https://t.me/ziko" class="brutal-button hidden items-center gap-2 bg-zylabs-indigo px-4 py-2 text-sm font-black text-white sm:inline-flex">
+          <i data-lucide="send" class="h-4 w-4"></i>
+          <span>Telegram</span>
+        </a>
+        <button id="mobileMenuButton" type="button" class="brutal-button inline-flex items-center justify-center bg-white p-3 lg:hidden" aria-label="Buka menu navigasi" aria-controls="mobileMenu" aria-expanded="false">
+          <i data-lucide="menu" class="h-5 w-5"></i>
+        </button>
+      </div>
+    </nav>
+    <div id="mobileMenu" class="hidden border-t-2 border-zylabs-ink bg-white px-5 py-4 lg:hidden">
+      <div class="mx-auto grid max-w-7xl gap-3 text-sm font-black">
+        <a class="rounded-lg border-2 border-zylabs-ink bg-cyan-50 px-4 py-3" href="#layanan">Layanan</a>
+        <a class="rounded-lg border-2 border-zylabs-ink bg-white px-4 py-3" href="#cara-order">Cara Order</a>
+        <a class="rounded-lg border-2 border-zylabs-ink bg-violet-50 px-4 py-3" href="#keunggulan">Keunggulan</a>
+        <a class="rounded-lg border-2 border-zylabs-ink bg-emerald-50 px-4 py-3" href="#harga">Harga</a>
+        <a class="rounded-lg border-2 border-zylabs-ink bg-rose-50 px-4 py-3" href="#faq">FAQ</a>
+        <a class="rounded-lg border-2 border-zylabs-ink bg-white px-4 py-3" href="#tentang">Tentang</a>
+        <a class="rounded-lg border-2 border-zylabs-ink bg-cyan-50 px-4 py-3" href="#kontak">Kontak</a>
+        <a class="rounded-lg border-2 border-zylabs-ink bg-zylabs-indigo px-4 py-3 text-white" href="https://t.me/ziko">
+          <span class="inline-flex items-center gap-2">
+            <i data-lucide="send" class="h-4 w-4"></i>
+            Telegram @ziko
+          </span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="hero" class="overflow-hidden pt-28">
+      <div class="mx-auto grid max-w-7xl items-center gap-12 px-5 pb-20 pt-12 lg:grid-cols-[0.86fr_1.14fr] lg:px-8 lg:pb-24 lg:pt-20">
+        <div class="fade-in order-2 lg:order-1">
+          <p class="mb-6 inline-flex items-center gap-2 rounded-lg border-2 border-zylabs-ink bg-zylabs-mint px-4 py-2 text-sm font-black shadow-brutalSm">
+            <i data-lucide="sparkles" class="h-4 w-4"></i>
+            Cloud services Indonesia, full otomatis
+          </p>
+          <h1 class="max-w-4xl text-5xl font-black leading-[0.98] tracking-tight sm:text-6xl lg:text-7xl">
+            Internet privat,
+            <span class="block text-zylabs-blue">server cepat,</span>
+            harga ramah.
+          </h1>
+          <p class="mt-7 max-w-2xl text-lg leading-8 text-slate-700">
+            Zylabs Cloud menyediakan VPN WireGuard, HTTP Proxy, SSH Tunnel, dan VPS dengan Hermes AI Agent untuk individu, developer, marketer, dan UMKM Indonesia.
+          </p>
+          <div class="mt-9 flex flex-col gap-4 sm:flex-row">
+            <a href="#harga" class="brutal-button inline-flex items-center justify-center gap-2 bg-zylabs-cyan px-6 py-3 text-center font-black text-zylabs-ink">
+              <i data-lucide="tags" class="h-5 w-5"></i>
+              <span>Lihat Harga</span>
+            </a>
+            <a href="#layanan" class="brutal-button inline-flex items-center justify-center gap-2 bg-white px-6 py-3 text-center font-black text-zylabs-ink">
+              <i data-lucide="server" class="h-5 w-5"></i>
+              <span>Jelajahi Layanan</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="fade-in order-1 overflow-visible py-4 transition lg:order-2">
+          <div class="mx-auto max-w-[44rem]">
+            <div class="relative h-[23rem] sm:h-[29rem] lg:h-[33rem]">
+              <div class="absolute left-1/2 top-1/2 h-[20rem] w-[20rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cyan-200/45 blur-3xl sm:h-[24rem] sm:w-[24rem]"></div>
+              <div class="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-cyan-200/60 bg-white/25 sm:h-64 sm:w-64"></div>
+            <img
+              src="assets/hero-mascot.png"
+              alt="Mascot Zylabs Cloud"
+              class="hero-float absolute left-1/2 top-1/2 z-10 h-[18rem] w-[18rem] max-w-none -translate-x-1/2 -translate-y-1/2 object-contain drop-shadow-[0_22px_35px_rgba(15,23,42,0.18)] sm:h-[23rem] sm:w-[23rem] lg:h-[21rem] lg:w-[21rem]"
+            />
+
+            <div class="hero-float hero-float-slow absolute left-2 top-8 z-20 hidden w-56 rotate-[-2deg] rounded-lg border-2 border-zylabs-ink bg-white/95 p-3 shadow-brutalSm backdrop-blur lg:block">
+              <div class="flex items-center gap-3">
+                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-lg border-2 border-zylabs-ink bg-cyan-100 text-zylabs-blue">
+                  <i data-lucide="shield-check" class="h-5 w-5"></i>
+                </span>
+                <span>
+                  <span class="block text-base font-black leading-tight">VPN WireGuard</span>
+                  <span class="mt-1 block text-xs font-bold text-teal-700">akses privat</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="hero-float absolute bottom-32 left-0 z-20 hidden w-56 rotate-[1.5deg] rounded-lg border-2 border-zylabs-ink bg-white/95 p-3 shadow-brutalSm backdrop-blur lg:block">
+              <div class="flex items-center gap-3">
+                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-lg border-2 border-zylabs-ink bg-violet-100 text-zylabs-indigo">
+                  <i data-lucide="globe" class="h-5 w-5"></i>
+                </span>
+                <span>
+                  <span class="block text-base font-black leading-tight">HTTP Proxy</span>
+                  <span class="mt-1 block text-xs font-bold text-teal-700">scraping & multi-account</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="hero-float hero-float-slow hero-float-delay absolute bottom-12 right-0 z-20 hidden w-56 rotate-[-1deg] rounded-lg border-2 border-zylabs-ink bg-white/95 p-3 shadow-brutalSm backdrop-blur lg:block">
+              <div class="flex items-center gap-3">
+                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-lg border-2 border-zylabs-ink bg-slate-100 text-zylabs-ink">
+                  <i data-lucide="square-terminal" class="h-5 w-5"></i>
+                </span>
+                <span>
+                  <span class="block text-base font-black leading-tight">SSH Tunnel</span>
+                  <span class="mt-1 block text-xs font-bold text-teal-700">remote & port forwarding</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="hero-float hero-float-delay absolute right-0 top-16 z-20 hidden w-60 rotate-[1deg] rounded-lg border-2 border-zylabs-ink bg-white/95 p-3 shadow-brutalSm backdrop-blur lg:block">
+              <div class="flex items-center gap-3">
+                <span class="grid h-10 w-10 shrink-0 place-items-center rounded-lg border-2 border-zylabs-ink bg-zylabs-mint text-zylabs-indigo">
+                  <i data-lucide="bot" class="h-5 w-5"></i>
+                </span>
+                <span>
+                  <span class="block text-base font-black leading-tight">VPS + AI Agent</span>
+                  <span class="mt-1 block text-xs font-bold text-teal-700">Hermes AI siap pakai</span>
+                </span>
+              </div>
+            </div>
+            </div>
+
+            <div class="grid gap-3 sm:grid-cols-2 lg:hidden">
+              <div class="rounded-lg border-2 border-zylabs-ink bg-white/95 p-3 shadow-brutalSm">
+                <div class="flex items-center gap-3">
+                  <span class="grid h-10 w-10 shrink-0 place-items-center rounded-lg border-2 border-zylabs-ink bg-cyan-100 text-zylabs-blue">
+                    <i data-lucide="shield-check" class="h-5 w-5"></i>
+                  </span>
+                  <span>
+                    <span class="block text-base font-black leading-tight">VPN WireGuard</span>
+                    <span class="mt-1 block text-xs font-bold text-teal-700">akses privat</span>
+                  </span>
+                </div>
+              </div>
+              <div class="rounded-lg border-2 border-zylabs-ink bg-white/95 p-3 shadow-brutalSm">
+                <div class="flex items-center gap-3">
+                  <span class="grid h-10 w-10 shrink-0 place-items-center rounded-lg border-2 border-zylabs-ink bg-violet-100 text-zylabs-indigo">
+                    <i data-lucide="globe" class="h-5 w-5"></i>
+                  </span>
+                  <span>
+                    <span class="block text-base font-black leading-tight">HTTP Proxy</span>
+                    <span class="mt-1 block text-xs font-bold text-teal-700">scraping & multi-account</span>
+                  </span>
+                </div>
+              </div>
+              <div class="rounded-lg border-2 border-zylabs-ink bg-white/95 p-3 shadow-brutalSm">
+                <div class="flex items-center gap-3">
+                  <span class="grid h-10 w-10 shrink-0 place-items-center rounded-lg border-2 border-zylabs-ink bg-slate-100 text-zylabs-ink">
+                    <i data-lucide="square-terminal" class="h-5 w-5"></i>
+                  </span>
+                  <span>
+                    <span class="block text-base font-black leading-tight">SSH Tunnel</span>
+                    <span class="mt-1 block text-xs font-bold text-teal-700">remote & port forwarding</span>
+                  </span>
+                </div>
+              </div>
+              <div class="rounded-lg border-2 border-zylabs-ink bg-white/95 p-3 shadow-brutalSm">
+                <div class="flex items-center gap-3">
+                  <span class="grid h-10 w-10 shrink-0 place-items-center rounded-lg border-2 border-zylabs-ink bg-zylabs-mint text-zylabs-indigo">
+                    <i data-lucide="bot" class="h-5 w-5"></i>
+                  </span>
+                  <span>
+                    <span class="block text-base font-black leading-tight">VPS + AI Agent</span>
+                    <span class="mt-1 block text-xs font-bold text-teal-700">Hermes AI siap pakai</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="layanan" class="py-20">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="fade-in max-w-3xl">
+          <p class="inline-flex rounded-lg border-2 border-zylabs-ink bg-zylabs-coral px-3 py-1 text-sm font-black text-white shadow-brutalSm">Layanan</p>
+          <h2 class="mt-5 text-3xl font-black tracking-tight sm:text-5xl">Pilih layanan sesuai kerjaanmu.</h2>
+        </div>
+        <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          <article class="fade-in brutal-card p-6 transition">
+            <div class="icon-tile mb-5 text-zylabs-blue">
+              <i data-lucide="shield-check" class="h-7 w-7"></i>
+            </div>
+            <h3 class="text-xl font-black">VPN WireGuard</h3>
+            <p class="mt-3 leading-7 text-slate-700">Akses internet privat, stabil, dan praktis untuk bypass blokir dengan protokol modern.</p>
+            <a href="https://t.me/ziko?text=Halo%20Zylabs%20Cloud%2C%20saya%20mau%20order%20VPN%20WireGuard" class="mt-5 inline-flex items-center gap-2 rounded-lg border-2 border-zylabs-ink bg-zylabs-cyan px-4 py-2 text-sm font-black shadow-brutalSm">
+              <i data-lucide="send" class="h-4 w-4"></i>
+              Order VPN
+            </a>
+          </article>
+          <article class="fade-in brutal-card p-6 transition">
+            <div class="icon-tile mb-5 bg-violet-100 text-zylabs-indigo">
+              <i data-lucide="globe" class="h-7 w-7"></i>
+            </div>
+            <h3 class="text-xl font-black">HTTP Proxy</h3>
+            <p class="mt-3 leading-7 text-slate-700">Cocok untuk web scraping, multi-account, testing campaign, dan bypass rate limit.</p>
+            <a href="https://t.me/ziko?text=Halo%20Zylabs%20Cloud%2C%20saya%20mau%20order%20HTTP%20Proxy" class="mt-5 inline-flex items-center gap-2 rounded-lg border-2 border-zylabs-ink bg-violet-100 px-4 py-2 text-sm font-black shadow-brutalSm">
+              <i data-lucide="send" class="h-4 w-4"></i>
+              Order Proxy
+            </a>
+          </article>
+          <article class="fade-in brutal-card p-6 transition">
+            <div class="icon-tile mb-5 text-zylabs-blue">
+              <i data-lucide="square-terminal" class="h-7 w-7"></i>
+            </div>
+            <h3 class="text-xl font-black">SSH Tunnel</h3>
+            <p class="mt-3 leading-7 text-slate-700">Remote access, port forwarding, dan tunneling untuk kebutuhan teknis yang fleksibel.</p>
+            <a href="https://t.me/ziko?text=Halo%20Zylabs%20Cloud%2C%20saya%20mau%20order%20SSH%20Tunnel" class="mt-5 inline-flex items-center gap-2 rounded-lg border-2 border-zylabs-ink bg-zylabs-cyan px-4 py-2 text-sm font-black shadow-brutalSm">
+              <i data-lucide="send" class="h-4 w-4"></i>
+              Order SSH
+            </a>
+          </article>
+          <article class="fade-in brutal-card p-6 transition">
+            <div class="icon-tile mb-5 bg-zylabs-mint text-zylabs-blue">
+              <i data-lucide="bot" class="h-7 w-7"></i>
+            </div>
+            <h3 class="text-xl font-black">VPS + Hermes AI Agent</h3>
+            <p class="mt-3 leading-7 text-slate-700">Virtual server siap pakai dengan Hermes AI Agent terinstall untuk otomasi, eksperimen AI, dan workflow developer.</p>
+            <a href="https://t.me/ziko?text=Halo%20Zylabs%20Cloud%2C%20saya%20mau%20order%20VPS%20%2B%20Hermes%20AI%20Agent" class="mt-5 inline-flex items-center gap-2 rounded-lg border-2 border-zylabs-ink bg-zylabs-mint px-4 py-2 text-sm font-black shadow-brutalSm">
+              <i data-lucide="send" class="h-4 w-4"></i>
+              Order VPS AI
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="cara-order" class="border-y-2 border-zylabs-ink bg-white py-20">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="fade-in max-w-3xl">
+          <p class="inline-flex rounded-lg border-2 border-zylabs-ink bg-zylabs-mint px-3 py-1 text-sm font-black shadow-brutalSm">Cara Order</p>
+          <h2 class="mt-5 text-3xl font-black tracking-tight sm:text-5xl">Order layanan tanpa bolak-balik chat panjang.</h2>
+          <p class="mt-5 text-lg leading-8 text-slate-700">Semua proses dibuat ringkas via Telegram. Pilih paket, kirim kebutuhan, lalu layanan aktif setelah pembayaran terkonfirmasi.</p>
+        </div>
+        <div class="mt-10 grid gap-5 md:grid-cols-3">
+          <article class="fade-in rounded-lg border-2 border-zylabs-ink bg-cyan-50 p-6 shadow-brutal">
+            <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-lg border-2 border-zylabs-ink bg-white text-xl font-black">1</div>
+            <h3 class="text-xl font-black">Pilih layanan</h3>
+            <p class="mt-3 leading-7 text-slate-700">Tentukan VPN, Proxy, SSH, atau VPS + AI Agent sesuai kebutuhan.</p>
+          </article>
+          <article class="fade-in rounded-lg border-2 border-zylabs-ink bg-violet-50 p-6 shadow-brutal">
+            <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-lg border-2 border-zylabs-ink bg-white text-xl font-black">2</div>
+            <h3 class="text-xl font-black">Chat Telegram</h3>
+            <p class="mt-3 leading-7 text-slate-700">Klik tombol order, kirim detail kebutuhan, dan ikuti instruksi pembayaran.</p>
+          </article>
+          <article class="fade-in rounded-lg border-2 border-zylabs-ink bg-emerald-50 p-6 shadow-brutal">
+            <div class="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-lg border-2 border-zylabs-ink bg-white text-xl font-black">3</div>
+            <h3 class="text-xl font-black">Aktif otomatis</h3>
+            <p class="mt-3 leading-7 text-slate-700">Akun atau server disiapkan cepat, lalu detail akses dikirim langsung via Telegram.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="keunggulan" class="py-20">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-center">
+          <div class="fade-in">
+            <p class="inline-flex rounded-lg border-2 border-zylabs-ink bg-zylabs-mint px-3 py-1 text-sm font-black shadow-brutalSm">Keunggulan</p>
+            <h2 class="mt-5 text-3xl font-black tracking-tight sm:text-5xl">Bukan cloud yang bikin pusing.</h2>
+            <p class="mt-5 text-lg leading-8 text-slate-700">Zylabs Cloud fokus ke harga yang masuk akal, aktivasi otomatis, dan support yang cepat untuk kebutuhan harian pengguna Indonesia.</p>
+          </div>
+          <div class="grid gap-4 sm:grid-cols-2">
+            <div class="fade-in rounded-lg border-2 border-zylabs-ink bg-cyan-50 p-6 shadow-brutalSm">
+              <i data-lucide="wallet" class="mb-4 h-7 w-7 text-zylabs-blue"></i>
+              <h3 class="text-lg font-black">Harga Terjangkau</h3>
+              <p class="mt-2 leading-7 text-slate-700">Mulai Rp 10.000/bulan untuk proxy dan tunneling.</p>
+            </div>
+            <div class="fade-in rounded-lg border-2 border-zylabs-ink bg-violet-50 p-6 shadow-brutalSm">
+              <i data-lucide="workflow" class="mb-4 h-7 w-7 text-zylabs-indigo"></i>
+              <h3 class="text-lg font-black">Full Otomatis</h3>
+              <p class="mt-2 leading-7 text-slate-700">Order, aktivasi, dan pengelolaan via Telegram bot.</p>
+            </div>
+            <div class="fade-in rounded-lg border-2 border-zylabs-ink bg-white p-6 shadow-brutalSm">
+              <i data-lucide="headset" class="mb-4 h-7 w-7 text-zylabs-blue"></i>
+              <h3 class="text-lg font-black">Support 24/7</h3>
+              <p class="mt-2 leading-7 text-slate-700">Bantuan tersedia untuk individu, developer, marketer, dan UMKM.</p>
+            </div>
+            <div class="fade-in rounded-lg border-2 border-zylabs-ink bg-rose-50 p-6 shadow-brutalSm">
+              <i data-lucide="rocket" class="mb-4 h-7 w-7 text-zylabs-coral"></i>
+              <h3 class="text-lg font-black">Cepat Dipakai</h3>
+              <p class="mt-2 leading-7 text-slate-700">Konfigurasi praktis untuk akses privat, tunneling, server, dan otomasi AI.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="harga" class="py-20">
+      <div class="mx-auto max-w-7xl px-5 lg:px-8">
+        <div class="fade-in flex flex-col justify-between gap-5 md:flex-row md:items-end">
+          <div>
+            <p class="inline-flex rounded-lg border-2 border-zylabs-ink bg-zylabs-indigo px-3 py-1 text-sm font-black text-white shadow-brutalSm">Harga</p>
+            <h2 class="mt-5 text-3xl font-black tracking-tight sm:text-5xl">Paket bulanan transparan.</h2>
+          </div>
+          <p class="max-w-xl text-lg leading-8 text-slate-700">Pilih layanan sesuai kebutuhan. Setiap paket sudah termasuk bantuan setup dasar dan support via Telegram.</p>
+        </div>
+
+        <div class="mt-10 grid gap-5 md:grid-cols-3">
+          <article class="fade-in flex min-h-[25rem] rounded-lg border-2 border-zylabs-ink bg-white p-6 shadow-brutalSm">
+            <div class="flex w-full flex-col">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <i data-lucide="shield-check" class="mb-4 h-7 w-7 text-zylabs-blue"></i>
+                  <h3 class="text-xl font-black">VPN WireGuard</h3>
+                </div>
+                <span class="rounded-lg border-2 border-zylabs-ink bg-cyan-50 px-3 py-1 text-xs font-black">Privat</span>
+              </div>
+              <div class="mt-5 border-y-2 border-zylabs-ink py-4">
+                <p class="text-4xl font-black text-zylabs-blue">Rp 15.000</p>
+                <p class="mt-1 text-sm font-bold text-slate-500">per bulan</p>
+              </div>
+              <ul class="mt-5 space-y-3 text-sm font-semibold leading-6 text-slate-700">
+                <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-zylabs-blue"></i><span>Akses privat WireGuard</span></li>
+                <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-zylabs-blue"></i><span>Bypass blokir internet</span></li>
+                <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-zylabs-blue"></i><span>Setup cepat via Telegram</span></li>
+              </ul>
+              <a href="https://t.me/ziko?text=Halo%20Zylabs%20Cloud%2C%20saya%20mau%20order%20VPN%20WireGuard" class="mt-auto inline-flex items-center justify-center gap-2 rounded-lg border-2 border-zylabs-ink bg-zylabs-cyan px-4 py-3 text-sm font-black shadow-brutalSm">
+                <i data-lucide="send" class="h-4 w-4"></i>
+                Order
+              </a>
+            </div>
+          </article>
+          <article class="fade-in flex min-h-[25rem] rounded-lg border-2 border-zylabs-ink bg-cyan-50 p-6 shadow-brutalSm">
+            <div class="flex w-full flex-col">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <i data-lucide="globe" class="mb-4 h-7 w-7 text-zylabs-indigo"></i>
+                  <h3 class="text-xl font-black">HTTP Proxy</h3>
+                </div>
+                <span class="rounded-lg border-2 border-zylabs-ink bg-white px-3 py-1 text-xs font-black">Scraping</span>
+              </div>
+              <div class="mt-5 border-y-2 border-zylabs-ink py-4">
+                <p class="text-4xl font-black text-zylabs-blue">Rp 10.000</p>
+                <p class="mt-1 text-sm font-bold text-slate-500">per bulan</p>
+              </div>
+              <ul class="mt-5 space-y-3 text-sm font-semibold leading-6 text-slate-700">
+                <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-zylabs-blue"></i><span>Web scraping ringan</span></li>
+                <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-zylabs-blue"></i><span>Multi-account workflow</span></li>
+                <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-zylabs-blue"></i><span>Bantu bypass rate limit</span></li>
+              </ul>
+              <a href="https://t.me/ziko?text=Halo%20Zylabs%20Cloud%2C%20saya%20mau%20order%20HTTP%20Proxy" class="mt-auto inline-flex items-center justify-center gap-2 rounded-lg border-2 border-zylabs-ink bg-white px-4 py-3 text-sm font-black shadow-brutalSm">
+                <i data-lucide="send" class="h-4 w-4"></i>
+                Order
+              </a>
+            </div>
+          </article>
+          <article class="fade-in flex min-h-[25rem] rounded-lg border-2 border-zylabs-ink bg-white p-6 shadow-brutalSm">
+            <div class="flex w-full flex-col">
+              <div class="flex items-start justify-between gap-4">
+                <div>
+                  <i data-lucide="square-terminal" class="mb-4 h-7 w-7 text-zylabs-blue"></i>
+                  <h3 class="text-xl font-black">SSH Tunnel</h3>
+                </div>
+                <span class="rounded-lg border-2 border-zylabs-ink bg-cyan-50 px-3 py-1 text-xs font-black">Tunnel</span>
+              </div>
+              <div class="mt-5 border-y-2 border-zylabs-ink py-4">
+                <p class="text-4xl font-black text-zylabs-blue">Rp 10.000</p>
+                <p class="mt-1 text-sm font-bold text-slate-500">per bulan</p>
+              </div>
+              <ul class="mt-5 space-y-3 text-sm font-semibold leading-6 text-slate-700">
+                <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-zylabs-blue"></i><span>Remote access aman</span></li>
+                <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-zylabs-blue"></i><span>Port forwarding</span></li>
+                <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-zylabs-blue"></i><span>Tunneling fleksibel</span></li>
+              </ul>
+              <a href="https://t.me/ziko?text=Halo%20Zylabs%20Cloud%2C%20saya%20mau%20order%20SSH%20Tunnel" class="mt-auto inline-flex items-center justify-center gap-2 rounded-lg border-2 border-zylabs-ink bg-zylabs-cyan px-4 py-3 text-sm font-black shadow-brutalSm">
+                <i data-lucide="send" class="h-4 w-4"></i>
+                Order
+              </a>
+            </div>
+          </article>
+          <article class="fade-in rounded-lg border-2 border-zylabs-ink bg-zylabs-mint p-6 shadow-brutal md:col-span-3">
+            <div class="grid gap-6 lg:grid-cols-[1fr_0.85fr] lg:items-center">
+              <div>
+                <div class="flex flex-wrap items-center gap-3">
+                  <i data-lucide="bot" class="h-8 w-8 text-zylabs-indigo"></i>
+                  <h3 class="text-2xl font-black">VPS + AI Agent</h3>
+                  <span class="rounded-lg border-2 border-zylabs-ink bg-white px-3 py-1 text-xs font-black">Paket AI</span>
+                </div>
+                <p class="mt-4 max-w-2xl leading-7 text-slate-700">Virtual server siap pakai dengan Hermes AI Agent terinstall untuk otomasi, eksperimen AI, dan workflow developer.</p>
+              </div>
+              <div class="rounded-lg border-2 border-zylabs-ink bg-white p-5 shadow-brutalSm">
+                <p class="text-4xl font-black text-zylabs-indigo">Rp 85.000</p>
+                <p class="mt-1 text-sm font-bold text-slate-600">per bulan</p>
+                <ul class="mt-5 grid gap-3 text-sm font-semibold leading-6 text-slate-700 sm:grid-cols-3 lg:grid-cols-1">
+                  <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-zylabs-indigo"></i><span>Virtual server aktif</span></li>
+                  <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-zylabs-indigo"></i><span>Hermes AI Agent siap pakai</span></li>
+                  <li class="flex gap-2"><i data-lucide="check" class="mt-0.5 h-4 w-4 shrink-0 text-zylabs-indigo"></i><span>Cocok untuk otomasi</span></li>
+              </ul>
+                <a href="https://t.me/ziko?text=Halo%20Zylabs%20Cloud%2C%20saya%20mau%20order%20VPS%20%2B%20Hermes%20AI%20Agent" class="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-lg border-2 border-zylabs-ink bg-zylabs-indigo px-4 py-3 text-sm font-black text-white shadow-brutalSm">
+                  <i data-lucide="send" class="h-4 w-4"></i>
+                  Order VPS AI
+                </a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="border-y-2 border-zylabs-ink bg-white py-20">
+      <div class="mx-auto max-w-5xl px-5 lg:px-8">
+        <div class="fade-in max-w-3xl">
+          <p class="inline-flex rounded-lg border-2 border-zylabs-ink bg-zylabs-coral px-3 py-1 text-sm font-black text-white shadow-brutalSm">FAQ</p>
+          <h2 class="mt-5 text-3xl font-black tracking-tight sm:text-5xl">Pertanyaan yang sering ditanyakan.</h2>
+        </div>
+        <div class="mt-10 grid gap-4">
+          <details class="fade-in rounded-lg border-2 border-zylabs-ink bg-cyan-50 p-5 shadow-brutalSm">
+            <summary class="cursor-pointer text-lg font-black">Berapa lama layanan aktif setelah order?</summary>
+            <p class="mt-3 leading-7 text-slate-700">Umumnya cepat setelah pembayaran terkonfirmasi. Detail akses akan dikirim melalui Telegram.</p>
+          </details>
+          <details class="fade-in rounded-lg border-2 border-zylabs-ink bg-white p-5 shadow-brutalSm">
+            <summary class="cursor-pointer text-lg font-black">Apakah bisa dibantu setup?</summary>
+            <p class="mt-3 leading-7 text-slate-700">Bisa. Zylab's membantu setup dasar agar layanan bisa langsung dipakai sesuai kebutuhanmu.</p>
+          </details>
+          <details class="fade-in rounded-lg border-2 border-zylabs-ink bg-violet-50 p-5 shadow-brutalSm">
+            <summary class="cursor-pointer text-lg font-black">Cocok untuk siapa saja?</summary>
+            <p class="mt-3 leading-7 text-slate-700">Cocok untuk individu, developer, marketer, dan UMKM yang butuh akses jaringan, server, atau otomasi ringan.</p>
+          </details>
+          <details class="fade-in rounded-lg border-2 border-zylabs-ink bg-emerald-50 p-5 shadow-brutalSm">
+            <summary class="cursor-pointer text-lg font-black">Apakah support tersedia 24/7?</summary>
+            <p class="mt-3 leading-7 text-slate-700">Ya, support tersedia 24/7 via Telegram untuk pertanyaan order, aktivasi, dan kendala teknis dasar.</p>
+          </details>
+          <details class="fade-in rounded-lg border-2 border-zylabs-ink bg-rose-50 p-5 shadow-brutalSm">
+            <summary class="cursor-pointer text-lg font-black">Apakah paket bisa disesuaikan?</summary>
+            <p class="mt-3 leading-7 text-slate-700">Bisa. Untuk kebutuhan khusus seperti lokasi server, kapasitas, atau workflow AI, chat Telegram agar paketnya bisa disesuaikan.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="tentang" class="py-20">
+      <div class="mx-auto grid max-w-7xl gap-10 px-5 lg:grid-cols-[0.95fr_1.05fr] lg:items-center lg:px-8">
+        <div class="fade-in brutal-card p-3 transition">
+          <img
+            src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80"
+            alt="Jaringan cloud global"
+            class="h-80 w-full rounded-lg border-2 border-zylabs-ink object-cover"
+          />
+        </div>
+        <div class="fade-in">
+          <p class="inline-flex rounded-lg border-2 border-zylabs-ink bg-zylabs-coral px-3 py-1 text-sm font-black text-white shadow-brutalSm">Tentang Kami</p>
+          <h2 class="mt-5 text-3xl font-black tracking-tight sm:text-5xl">Cloud services yang dekat dengan kebutuhan lokal.</h2>
+          <p class="mt-5 text-lg leading-8 text-slate-700">
+            Zylabs Cloud membantu pengguna Indonesia mendapatkan akses jaringan, server, tunneling, dan otomasi AI dengan biaya yang masuk akal. Kami melayani kebutuhan personal, eksperimen developer, aktivitas marketing, hingga operasional UMKM yang membutuhkan layanan cepat dan mudah dipahami.
+          </p>
+          <div class="mt-7 grid gap-3 sm:grid-cols-3">
+            <div class="rounded-lg border-2 border-zylabs-ink bg-cyan-100 p-4 text-center shadow-brutalSm">
+              <p class="text-2xl font-black">4</p>
+              <p class="text-sm font-semibold text-slate-700">layanan utama</p>
+            </div>
+            <div class="rounded-lg border-2 border-zylabs-ink bg-violet-100 p-4 text-center shadow-brutalSm">
+              <p class="text-2xl font-black">24/7</p>
+              <p class="text-sm font-semibold text-slate-700">support</p>
+            </div>
+            <div class="rounded-lg border-2 border-zylabs-ink bg-emerald-100 p-4 text-center shadow-brutalSm">
+              <p class="text-2xl font-black">Auto</p>
+              <p class="text-sm font-semibold text-slate-700">Telegram bot</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="kontak" class="py-20">
+      <div class="mx-auto max-w-4xl px-5 text-center lg:px-8">
+        <div class="fade-in">
+          <p class="inline-flex rounded-lg border-2 border-zylabs-ink bg-zylabs-mint px-3 py-1 text-sm font-black shadow-brutalSm">Kontak</p>
+          <h2 class="mt-5 text-3xl font-black tracking-tight sm:text-5xl">Siap mulai dengan Zylabs Cloud?</h2>
+          <p class="mx-auto mt-5 max-w-2xl text-lg leading-8 text-slate-700">
+            Hubungi kami untuk order layanan, konsultasi paket, atau bantuan teknis. Tim support siap membantu 24/7.
+          </p>
+          <div class="mt-9 flex flex-col justify-center gap-4 sm:flex-row">
+            <a href="https://t.me/ziko" class="brutal-button inline-flex items-center justify-center gap-2 bg-zylabs-indigo px-6 py-3 font-black text-white">
+              <i data-lucide="send" class="h-5 w-5"></i>
+              <span>Chat Telegram @ziko</span>
+            </a>
+            <a href="mailto:ziylabs@gmail.com" class="brutal-button inline-flex items-center justify-center gap-2 bg-white px-6 py-3 font-black text-zylabs-ink">
+              <i data-lucide="mail" class="h-5 w-5 text-zylabs-blue"></i>
+              <span>ziylabs@gmail.com</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="border-t-2 border-zylabs-ink bg-white">
+    <div class="mx-auto flex max-w-7xl flex-col gap-4 px-5 py-8 text-sm font-semibold text-slate-700 sm:flex-row sm:items-center sm:justify-between lg:px-8">
+      <p>&copy; 2026 Zylabs Cloud. Cloud services Indonesia.</p>
+      <div class="flex flex-wrap gap-5">
+        <a href="#cara-order" class="transition hover:text-zylabs-blue">Cara Order</a>
+        <a href="#faq" class="transition hover:text-zylabs-blue">FAQ</a>
+        <a href="https://t.me/ziko" class="inline-flex items-center gap-2 transition hover:text-zylabs-blue">
+          <i data-lucide="send" class="h-4 w-4"></i>
+          <span>Telegram @ziko</span>
+        </a>
+        <a href="mailto:ziylabs@gmail.com" class="inline-flex items-center gap-2 transition hover:text-zylabs-blue">
+          <i data-lucide="mail" class="h-4 w-4"></i>
+          <span>ziylabs@gmail.com</span>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.fade-in').forEach((element) => observer.observe(element));
+
+    const mobileMenuButton = document.getElementById('mobileMenuButton');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    if (mobileMenuButton && mobileMenu) {
+      mobileMenuButton.addEventListener('click', () => {
+        const isOpen = !mobileMenu.classList.contains('hidden');
+        mobileMenu.classList.toggle('hidden');
+        mobileMenuButton.setAttribute('aria-expanded', String(!isOpen));
+      });
+
+      mobileMenu.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => {
+          mobileMenu.classList.add('hidden');
+          mobileMenuButton.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    if (window.lucide) {
+      lucide.createIcons({
+        attrs: {
+          'stroke-width': 1.9
+        }
+      });
+    }
+  </script>
+</body>
+</html>
